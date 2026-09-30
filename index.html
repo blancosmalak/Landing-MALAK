@@ -37,7 +37,7 @@
         rel="stylesheet"
     >
 
-    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/styles.css?v=2">
 </head>
 
 <body>
@@ -58,36 +58,103 @@
 </noscript>
 <!-- End Facebook Pixel Code (noscript) -->
 
-    <header>
-        <div class="header-inner">
+<header>
+    <div class="header-inner">
 
-            <div class="logo">
-                <img
-                    src="./img/logo.png"
-                    alt="MALAK Distribuidora de Blancos"
-                    class="logo-image"
-                >
-            </div>
-
-            <div class="header-cta">
-                <a
-                class="phone-link"
-                href="https://wa.me/529511133384"
-                target="_blank"
-                rel="noopener noreferrer"
+        <div class="logo">
+            <img
+                src="./img/logo.png"
+                alt="MALAK Distribuidora de Blancos"
+                class="logo-image"
             >
-                951 113 3384
-            </a>
+        </div>
 
-                <a class="btn btn-primary btn-header" href="#solicitud">
-                    Contáctanos
-                </a>
-            </div>
+        <div class="header-cta">
+
+            <a
+    class="phone-link"
+    href="https://wa.me/529511133384"
+    target="_blank"
+    rel="noopener noreferrer"
+>
+    951 113 3384
+</a>
+
+<button
+    class="mobile-menu-toggle"
+    type="button"
+    aria-label="Abrir menú"
+    aria-expanded="false"
+    aria-controls="main-navigation"
+>
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+
+<a class="btn btn-primary btn-header" href="#solicitud">
+    Contáctanos
+</a>
 
         </div>
-    </header>
 
-    <main>
+    </div>
+</header>
+
+<nav
+    class="main-nav"
+    id="main-navigation"
+    aria-label="Navegación principal"
+>
+
+<a href="./catalogo.html" class="nav-link">
+    Catálogo
+</a>
+
+    <div class="nav-dropdown">
+
+        <button
+            class="nav-dropdown-toggle"
+            type="button"
+            aria-expanded="false"
+        >
+            Recursos
+            <span aria-hidden="true">⌄</span>
+        </button>
+
+        <div class="nav-dropdown-menu">
+
+            <a
+            href="./capacitacion.html"
+            class="nav-dropdown-item"
+        >
+                <strong>Capacitación para hoteles</strong>
+                <span>Guía de lavandería y cuidado de blancos</span>
+            </a>
+
+            <a
+            href="calculadora-costos-malak_1.html"
+            class="nav-dropdown-item"
+        >
+            <strong>Calculadora de costos</strong>
+            <span>Calcula el costo de tus procesos de lavandería</span>
+        </a>
+
+            <a
+            href="./costo-por-habitacion.html"
+            class="nav-dropdown-item"
+        >
+            <strong>Costo por habitación</strong>
+            <span>Calcula cuánto te cuesta operar cada habitación vendida</span>
+        </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<main>
 
         <section class="hero">
             <div class="hero-inner">
@@ -181,155 +248,221 @@
         <section class="catalog-section" id="catalogo">
 
             <div class="catalog-container">
-        
+
                 <div class="catalog-heading reveal">
-        
+
                     <div>
                         <span class="catalog-eyebrow">
                             Colección hotelera
                         </span>
-        
+
                         <h2>
                             Blancos que elevan la experiencia de cada habitación
                         </h2>
                     </div>
-        
+
                     <p>
-                        Conoce nuestra selección de sábanas, toallas y almohadas
-                        diseñadas para ofrecer comodidad, resistencia y una
-                        presentación impecable.
+                        Descubre una selección de nuestras líneas para hotelería.
+                        Abre cada categoría para conocer sus características y
+                        solicitar muestras directamente.
                     </p>
-        
+
                 </div>
-        
-                <div class="catalog-layout">
-        
-                    <!-- Producto principal -->
-                    <article class="product-card product-card-featured reveal">
-        
-                        <div class="product-images product-images-double">
-        
-                            <img
-                                src="img/image-4.png"
-                                alt="Sábanas hoteleras mezcla 50/50"
-                            >
-        
-                            <img
-                                src="img/image-3.png"
-                                alt="Sábanas hoteleras de algodón"
-                            >
-        
-                        </div>
-        
-                        <div class="product-content">
-        
-                            <div>
-                                <span class="product-category">
-                                    Ropa de cama
-                                </span>
-        
-                                <h3>Sábanas hoteleras</h3>
-        
-                                <p>
-                                    Alternativas en mezcla 50/50 y 100% algodón,
-                                    pensadas para diferentes niveles de confort,
-                                    mantenimiento y operación hotelera.
-                                </p>
+
+                <div class="catalog-accordion" data-catalog-accordion>
+
+                    <!-- Sábanas -->
+                    <article class="catalog-accordion-item is-open reveal" data-catalog-item>
+
+                        <button
+                            class="catalog-accordion-toggle"
+                            type="button"
+                            aria-expanded="true"
+                            aria-controls="catalog-panel-sabanas"
+                        >
+                            <span class="catalog-accordion-index">01</span>
+
+                            <span class="catalog-accordion-title">
+                                <small>Ropa de cama</small>
+                                <strong>Sábanas hoteleras</strong>
+                            </span>
+
+                            <span class="catalog-accordion-symbol" aria-hidden="true">−</span>
+                        </button>
+
+                        <div
+                            class="catalog-accordion-panel"
+                            id="catalog-panel-sabanas"
+                            aria-hidden="false"
+                        >
+                            <div class="catalog-accordion-panel-inner">
+
+                                <div class="catalog-accordion-media product-images product-images-double">
+                                    <img
+                                        src="img/image-4.png"
+                                        alt="Sábanas hoteleras mezcla 50/50"
+                                    >
+
+                                    <img
+                                        src="img/image-3.png"
+                                        alt="Sábanas hoteleras de algodón"
+                                    >
+                                </div>
+
+                                <div class="catalog-accordion-copy product-content">
+                                    <div>
+                                        <p>
+                                            Alternativas en mezcla 50/50 y 100% algodón,
+                                            pensadas para diferentes niveles de confort,
+                                            mantenimiento y operación hotelera.
+                                        </p>
+                                    </div>
+
+                                    <a href="#solicitud" class="product-link">
+                                        Solicitar muestras
+                                        <span aria-hidden="true">→</span>
+                                    </a>
+                                </div>
+
                             </div>
-        
-                            <a href="#solicitud" class="product-link">
-                                Solicitar muestras
-                                <span aria-hidden="true">→</span>
-                            </a>
-        
                         </div>
-        
+
                     </article>
-        
+
                     <!-- Toallas -->
-                    <article class="product-card reveal reveal-delay-1">
-        
-                        <div class="product-image">
-        
-                            <img
-                                src="img/image-2.png"
-                                alt="Guía de toallas hoteleras"
-                            >
-        
-                            <span class="product-badge">
-                                Alta absorción
+                    <article class="catalog-accordion-item reveal reveal-delay-1" data-catalog-item>
+
+                        <button
+                            class="catalog-accordion-toggle"
+                            type="button"
+                            aria-expanded="false"
+                            aria-controls="catalog-panel-toallas"
+                        >
+                            <span class="catalog-accordion-index">02</span>
+
+                            <span class="catalog-accordion-title">
+                                <small>Baño</small>
+                                <strong>Toallas hoteleras</strong>
                             </span>
-        
-                        </div>
-        
-                        <div class="product-content">
-        
-                            <div>
-                                <span class="product-category">
-                                    Baño
-                                </span>
-        
-                                <h3>Toallas hoteleras</h3>
-        
-                                <p>
-                                    Suavidad, absorción y resistencia para soportar
-                                    el uso constante y los procesos de lavandería.
-                                </p>
+
+                            <span class="catalog-accordion-symbol" aria-hidden="true">+</span>
+                        </button>
+
+                        <div
+                            class="catalog-accordion-panel"
+                            id="catalog-panel-toallas"
+                            aria-hidden="true"
+                        >
+                            <div class="catalog-accordion-panel-inner">
+
+                                <div class="catalog-accordion-media product-image">
+                                    <img
+                                        src="img/image-2.png"
+                                        alt="Guía de toallas hoteleras"
+                                    >
+
+                                    <span class="product-badge">
+                                        Alta absorción
+                                    </span>
+                                </div>
+
+                                <div class="catalog-accordion-copy product-content">
+                                    <div>
+                                        <p>
+                                            Suavidad, absorción y resistencia para soportar
+                                            el uso constante y los procesos de lavandería.
+                                        </p>
+                                    </div>
+
+                                    <a href="#solicitud" class="product-link">
+                                        Solicitar muestras
+                                        <span aria-hidden="true">→</span>
+                                    </a>
+                                </div>
+
                             </div>
-        
-                            <a href="#solicitud" class="product-link">
-                                Solicitar muestras
-                                <span aria-hidden="true">→</span>
-                            </a>
-        
                         </div>
-        
+
                     </article>
-        
+
                     <!-- Almohadas -->
-                    <article class="product-card reveal reveal-delay-2">
-        
-                        <div class="product-image">
-        
-                            <img
-                                src="img/image.png"
-                                alt="Guía de almohadas hoteleras"
-                            >
-        
-                            <span class="product-badge">
-                                Confort hotelero
+                    <article class="catalog-accordion-item reveal reveal-delay-2" data-catalog-item>
+
+                        <button
+                            class="catalog-accordion-toggle"
+                            type="button"
+                            aria-expanded="false"
+                            aria-controls="catalog-panel-almohadas"
+                        >
+                            <span class="catalog-accordion-index">03</span>
+
+                            <span class="catalog-accordion-title">
+                                <small>Descanso</small>
+                                <strong>Almohadas</strong>
                             </span>
-        
-                        </div>
-        
-                        <div class="product-content">
-        
-                            <div>
-                                <span class="product-category">
-                                    Descanso
-                                </span>
-        
-                                <h3>Almohadas</h3>
-        
-                                <p>
-                                    Opciones diseñadas para brindar comodidad,
-                                    soporte y una experiencia de descanso agradable.
-                                </p>
+
+                            <span class="catalog-accordion-symbol" aria-hidden="true">+</span>
+                        </button>
+
+                        <div
+                            class="catalog-accordion-panel"
+                            id="catalog-panel-almohadas"
+                            aria-hidden="true"
+                        >
+                            <div class="catalog-accordion-panel-inner">
+
+                                <div class="catalog-accordion-media product-image">
+                                    <img
+                                        src="img/image.png"
+                                        alt="Guía de almohadas hoteleras"
+                                    >
+
+                                    <span class="product-badge">
+                                        Confort hotelero
+                                    </span>
+                                </div>
+
+                                <div class="catalog-accordion-copy product-content">
+                                    <div>
+                                        <p>
+                                            Opciones diseñadas para brindar comodidad,
+                                            soporte y una experiencia de descanso agradable.
+                                        </p>
+                                    </div>
+
+                                    <a href="#solicitud" class="product-link">
+                                        Solicitar muestras
+                                        <span aria-hidden="true">→</span>
+                                    </a>
+                                </div>
+
                             </div>
-        
-                            <a href="#solicitud" class="product-link">
-                                Solicitar muestras
-                                <span aria-hidden="true">→</span>
-                            </a>
-        
                         </div>
-        
+
                     </article>
-        
+
                 </div>
-        
+
+                <div class="catalog-complete-cta reveal">
+                    <div>
+                        <span class="catalog-complete-label">Colección completa</span>
+
+                        <h3>Explora toda nuestra colección</h3>
+
+                        <p>
+                            Conoce todas las líneas de blancos MALAK para hotelería
+                            y encuentra la opción ideal para tu proyecto.
+                        </p>
+                    </div>
+
+                    <a href="./catalogo.html" class="catalog-complete-button">
+                        Ver catálogo completo
+                        <span aria-hidden="true">→</span>
+                    </a>
+                </div>
+
             </div>
-        
+
         </section>
 
         <section class="story-section" id="historia">
@@ -670,6 +803,39 @@
                             ></textarea>
                         </div>
         
+
+                        <div class="form-consents">
+                            <p class="form-consents-title">
+                                Promociones y novedades
+                            </p>
+
+                            <label class="consent-option" for="acepta-email">
+                                <input
+                                    type="checkbox"
+                                    id="acepta-email"
+                                    name="acepta_email"
+                                >
+                                <span>
+                                    Quiero recibir promociones y novedades de MALAK por correo electrónico.
+                                </span>
+                            </label>
+
+                            <label class="consent-option" for="acepta-whatsapp">
+                                <input
+                                    type="checkbox"
+                                    id="acepta-whatsapp"
+                                    name="acepta_whatsapp"
+                                >
+                                <span>
+                                    Quiero recibir promociones y novedades de MALAK por WhatsApp.
+                                </span>
+                            </label>
+
+                            <p class="consent-note">
+                                Estas opciones son voluntarias y no afectan el envío de tu solicitud.
+                            </p>
+                        </div>
+
                         <button type="submit" class="form-submit">
                             <span>Enviar solicitud por WhatsApp</span>
                             <span aria-hidden="true">→</span>
@@ -716,7 +882,7 @@
                 <span class="footer-title">Navegación</span>
     
                 <a href="#por-que-malak">¿Por qué MALAK?</a>
-                <a href="#catalogo">Catálogo</a>
+                <a href="./catalogo.html">Catálogo</a>
                 <a href="#historia">Nuestra historia</a>
                 <a href="#solicitud">Solicitar visita</a>
     
@@ -795,7 +961,8 @@
     
     </div>
 
-    <script src="./js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./js/main.js?v=4"></script>
 
 </body>
 </html>
