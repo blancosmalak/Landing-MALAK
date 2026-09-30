@@ -1,5 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+    // Supabase · MALAK
+    const SUPABASE_URL = "https://xxeoeqxtkiorhzpgwmlr.supabase.co";
+    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_kTMNj8gACdB6woD-Eb_LhQ_CPxma8pB";
+
+    const supabaseClient =
+        window.supabase?.createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+
+
     // Año automático del footer
     const currentYear = document.getElementById("current-year");
 
@@ -8,67 +19,147 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Sombra del encabezado al hacer scroll
-const header = document.querySelector("header");
+    const header = document.querySelector("header");
 
-const updateHeader = () => {
-    if (!header) return;
+    const updateHeader = () => {
+        if (!header) return;
 
-    header.classList.toggle(
-        "header-scrolled",
-        window.scrollY > 20
+        header.classList.toggle(
+            "header-scrolled",
+            window.scrollY > 20
+        );
+    };
+
+    updateHeader();
+
+    window.addEventListener(
+        "scroll",
+        updateHeader,
+        { passive: true }
     );
-};
 
-updateHeader();
+    // Animaciones de aparición al desplazarse
+    const revealElements = document.querySelectorAll(".reveal");
 
-window.addEventListener(
-    "scroll",
-    updateHeader,
-    { passive: true }
-);
+    if ("IntersectionObserver" in window) {
 
-// Animaciones de aparición al desplazarse
-const revealElements = document.querySelectorAll(".reveal");
+        const revealObserver = new IntersectionObserver(
+            (entries, observer) => {
 
-if ("IntersectionObserver" in window) {
+                entries.forEach((entry) => {
 
-    const revealObserver = new IntersectionObserver(
-        (entries, observer) => {
+                    if (!entry.isIntersecting) return;
 
-            entries.forEach((entry) => {
+                    entry.target.classList.add("reveal-visible");
+                    observer.unobserve(entry.target);
 
-                if (!entry.isIntersecting) return;
+                });
 
-                entry.target.classList.add("reveal-visible");
-                observer.unobserve(entry.target);
+            },
+            {
+                threshold: 0.12,
+                rootMargin: "0px 0px -50px 0px"
+            }
+        );
+
+        revealElements.forEach((element) => {
+            revealObserver.observe(element);
+        });
+
+    } else {
+
+        revealElements.forEach((element) => {
+            element.classList.add("reveal-visible");
+        });
+
+    }
+
+
+
+    // ==========================
+    // CATÁLOGO DESTACADO · ACORDEÓN
+    // Solo controla la presentación visual de la sección.
+    // ==========================
+
+    const catalogItems =
+        document.querySelectorAll("[data-catalog-item]");
+
+    if (catalogItems.length) {
+
+        const setCatalogItemState = (item, isOpen) => {
+
+            const toggle =
+                item.querySelector(".catalog-accordion-toggle");
+
+            const panel =
+                item.querySelector(".catalog-accordion-panel");
+
+            const symbol =
+                item.querySelector(".catalog-accordion-symbol");
+
+            item.classList.toggle("is-open", isOpen);
+
+            if (toggle) {
+                toggle.setAttribute(
+                    "aria-expanded",
+                    isOpen ? "true" : "false"
+                );
+            }
+
+            if (panel) {
+                panel.setAttribute(
+                    "aria-hidden",
+                    isOpen ? "false" : "true"
+                );
+
+                if ("inert" in panel) {
+                    panel.inert = !isOpen;
+                }
+            }
+
+            if (symbol) {
+                symbol.textContent = isOpen ? "−" : "+";
+            }
+
+        };
+
+        catalogItems.forEach((item) => {
+
+            const isOpen =
+                item.classList.contains("is-open");
+
+            setCatalogItemState(item, isOpen);
+
+            const toggle =
+                item.querySelector(".catalog-accordion-toggle");
+
+            if (!toggle) return;
+
+            toggle.addEventListener("click", () => {
+
+                if (item.classList.contains("is-open")) {
+                    return;
+                }
+
+                catalogItems.forEach((otherItem) => {
+                    setCatalogItemState(
+                        otherItem,
+                        otherItem === item
+                    );
+                });
 
             });
 
-        },
-        {
-            threshold: 0.12,
-            rootMargin: "0px 0px -50px 0px"
-        }
-    );
+        });
 
-    revealElements.forEach((element) => {
-        revealObserver.observe(element);
-    });
-
-} else {
-
-    revealElements.forEach((element) => {
-        element.classList.add("reveal-visible");
-    });
-
-}
+    }
 
     // Formulario de contacto
     const contactForm = document.getElementById("contact-form");
 
     if (contactForm) {
 
-        contactForm.addEventListener("submit", (event) => {
+        contactForm.addEventListener("submit", async (event) => {
 
             event.preventDefault();
 
@@ -86,7 +177,7 @@ if ("IntersectionObserver" in window) {
 
             const proveedor =
                 document.getElementById("proveedor")?.value.trim() || "";
-            
+
             const habitaciones =
                 document.getElementById("habitaciones")?.value.trim() || "";
 
@@ -99,11 +190,26 @@ if ("IntersectionObserver" in window) {
             const mensaje =
                 document.getElementById("mensaje")?.value.trim() || "";
 
+            const aceptaEmail =
+                document.getElementById("acepta-email")?.checked || false;
+
+            const aceptaWhatsApp =
+                document.getElementById("acepta-whatsapp")?.checked || false;
+
             if (!nombre || !telefono || !interes) {
                 alert(
                     "Por favor, completa tu nombre, teléfono y producto de interés."
                 );
 
+                return;
+            }
+
+            if (aceptaEmail && !correo) {
+                alert(
+                    "Escribe tu correo electrónico para recibir promociones por correo."
+                );
+
+                document.getElementById("correo")?.focus();
                 return;
             }
 
@@ -126,11 +232,217 @@ if ("IntersectionObserver" in window) {
             const enlaceWhatsApp =
                 `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(textoWhatsApp)}`;
 
-            window.open(
-                enlaceWhatsApp,
-                "_blank",
-                "noopener,noreferrer"
+            // Abrimos una pestaña vacía de inmediato para evitar
+            // que el navegador bloquee WhatsApp después del guardado.
+            const whatsappWindow = window.open("", "_blank");
+
+            const fechaConsentimiento =
+                (aceptaEmail || aceptaWhatsApp)
+                    ? new Date().toISOString()
+                    : null;
+
+            const registro = {
+                nombre,
+                telefono,
+                correo: correo || null,
+                negocio: negocio || null,
+                proveedor: proveedor || null,
+                habitaciones: habitaciones
+                    ? Number.parseInt(habitaciones, 10)
+                    : null,
+                ubicacion: ubicacion || null,
+                interes,
+                mensaje: mensaje || null,
+                acepta_email: aceptaEmail,
+                acepta_whatsapp: aceptaWhatsApp,
+                fecha_consentimiento: fechaConsentimiento,
+                origen: "pagina_web",
+                activo: true
+            };
+
+            if (supabaseClient) {
+                try {
+                    const { error } = await supabaseClient
+                        .from("contactos_malak")
+                        .insert([registro]);
+
+                    if (error) {
+                        throw error;
+                    }
+
+                    console.log("Contacto guardado correctamente en Supabase.");
+
+                } catch (error) {
+                    console.error(
+                        "No se pudo guardar el contacto en Supabase:",
+                        error
+                    );
+                
+                    alert(
+                        "Error al guardar en Supabase:\n" +
+                        (error?.message || JSON.stringify(error))
+                    );
+                
+                    if (whatsappWindow) {
+                        whatsappWindow.close();
+                    }
+                
+                    return;
+                }
+            } else {
+                console.error(
+                    "No se pudo iniciar Supabase. Revisa que el script de Supabase cargue correctamente."
+                );
+            }
+
+            if (whatsappWindow) {
+                whatsappWindow.opener = null;
+                whatsappWindow.location.href = enlaceWhatsApp;
+            } else {
+                window.location.href = enlaceWhatsApp;
+            }
+            
+            contactForm.reset();
+
+        });
+
+    }
+
+    // ==========================
+    // MENÚ MÓVIL
+    // ==========================
+
+    const mobileMenuToggle =
+        document.querySelector(".mobile-menu-toggle");
+
+    const mainNavigation =
+        document.getElementById("main-navigation");
+
+    const resourcesDropdown =
+        document.querySelector(".nav-dropdown");
+
+    const resourcesToggle =
+        document.querySelector(".nav-dropdown-toggle");
+
+    if (mobileMenuToggle && mainNavigation) {
+
+        const closeResourcesSubmenu = () => {
+
+            if (resourcesDropdown) {
+                resourcesDropdown.classList.remove(
+                    "mobile-submenu-open"
+                );
+            }
+
+            if (resourcesToggle) {
+                resourcesToggle.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+            }
+
+        };
+
+        const closeMobileMenu = () => {
+
+            mainNavigation.classList.remove("mobile-open");
+            mobileMenuToggle.classList.remove("active");
+
+            mobileMenuToggle.setAttribute(
+                "aria-expanded",
+                "false"
             );
+
+            mobileMenuToggle.setAttribute(
+                "aria-label",
+                "Abrir menú"
+            );
+
+            closeResourcesSubmenu();
+
+        };
+
+        // Abrir / cerrar menú principal
+        mobileMenuToggle.addEventListener("click", () => {
+
+            const isOpen =
+                mainNavigation.classList.toggle("mobile-open");
+
+            mobileMenuToggle.classList.toggle(
+                "active",
+                isOpen
+            );
+
+            mobileMenuToggle.setAttribute(
+                "aria-expanded",
+                isOpen ? "true" : "false"
+            );
+
+            mobileMenuToggle.setAttribute(
+                "aria-label",
+                isOpen
+                    ? "Cerrar menú"
+                    : "Abrir menú"
+            );
+
+            if (!isOpen) {
+                closeResourcesSubmenu();
+            }
+
+        });
+
+        // Abrir / cerrar Recursos en móvil
+        if (resourcesDropdown && resourcesToggle) {
+
+            resourcesToggle.addEventListener("click", (event) => {
+
+                if (window.innerWidth <= 900) {
+
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    const isOpen =
+                        resourcesDropdown.classList.toggle(
+                            "mobile-submenu-open"
+                        );
+
+                    resourcesToggle.setAttribute(
+                        "aria-expanded",
+                        isOpen ? "true" : "false"
+                    );
+
+                }
+
+            });
+
+        }
+
+        // Cierra el menú al seleccionar una opción real
+        mainNavigation
+            .querySelectorAll("a")
+            .forEach((link) => {
+
+                link.addEventListener("click", () => {
+                    closeMobileMenu();
+                });
+
+            });
+
+        // Cierra con Escape
+        document.addEventListener("keydown", (event) => {
+
+            if (event.key === "Escape") {
+                closeMobileMenu();
+            }
+
+        });
+
+        // Si regresamos a escritorio, limpia el estado móvil
+        window.addEventListener("resize", () => {
+
+            if (window.innerWidth > 900) {
+                closeMobileMenu();
+            }
 
         });
 
@@ -146,45 +458,42 @@ const modal = document.getElementById("imageModal");
 const modalImage = document.getElementById("modalImage");
 const closeModal = document.querySelector(".image-modal-close");
 
-document
-    .querySelectorAll(".product-image img, .product-images img")
-    .forEach((img)=>{
+if (modal && modalImage && closeModal) {
 
-        img.addEventListener("click",()=>{
+    document
+        .querySelectorAll(".product-image img, .product-images img")
+        .forEach((img) => {
 
-            modal.classList.add("active");
+            img.addEventListener("click", () => {
 
-            modalImage.src = img.src;
-            modalImage.alt = img.alt;
+                modal.classList.add("active");
+                modalImage.src = img.src;
+                modalImage.alt = img.alt;
+
+            });
 
         });
 
+    const hideModal = () => {
+        modal.classList.remove("active");
+    };
+
+    closeModal.addEventListener("click", hideModal);
+
+    modal.addEventListener("click", (event) => {
+
+        if (event.target === modal) {
+            hideModal();
+        }
+
     });
 
-function hideModal(){
+    document.addEventListener("keydown", (event) => {
 
-    modal.classList.remove("active");
+        if (event.key === "Escape") {
+            hideModal();
+        }
+
+    });
 
 }
-
-closeModal.addEventListener("click",hideModal);
-
-modal.addEventListener("click",(e)=>{
-
-    if(e.target===modal){
-
-        hideModal();
-
-    }
-
-});
-
-document.addEventListener("keydown",(e)=>{
-
-    if(e.key==="Escape"){
-
-        hideModal();
-
-    }
-
-});
