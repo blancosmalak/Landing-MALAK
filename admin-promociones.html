@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>MALAK | Centro de comunicaciones</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/admin-promociones.css?v=2">
+</head>
+
+<body>
+
+  <main class="admin-page">
+
+    <!-- LOGIN -->
+    <section class="login-view" id="login-view">
+      <div class="login-shell">
+
+        <div class="login-brand-panel">
+          <span class="eyebrow light">MALAK · Acceso privado</span>
+          <h1>Centro de<br>comunicaciones</h1>
+          <p>
+            Contactos, campañas y seguimiento comercial desde un solo lugar.
+          </p>
+
+          <div class="login-brand-foot">
+            <strong>MALAK</strong>
+            <span>Blancos para hotelería · Oaxaca</span>
+          </div>
+        </div>
+
+        <div class="login-card">
+
+          <div class="mobile-brand">
+            <strong>MALAK</strong>
+            <span>Centro de comunicaciones</span>
+          </div>
+
+          <span class="eyebrow">Panel administrativo</span>
+          <h2>Bienvenido</h2>
+          <p class="login-description">
+            Inicia sesión con tu cuenta autorizada para administrar las comunicaciones de MALAK.
+          </p>
+
+          <form id="login-form" class="login-form">
+
+            <div class="field">
+              <label for="login-email">Correo</label>
+              <input
+                id="login-email"
+                type="email"
+                autocomplete="email"
+                placeholder="tu@correo.com"
+                required
+              >
+            </div>
+
+            <div class="field">
+              <label for="login-password">Contraseña</label>
+              <input
+                id="login-password"
+                type="password"
+                autocomplete="current-password"
+                placeholder="Tu contraseña"
+                required
+              >
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="login-button">
+              Entrar al panel
+            </button>
+
+            <p class="status-message" id="login-status" aria-live="polite"></p>
+
+          </form>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- APP -->
+    <section class="dashboard-view hidden" id="dashboard-view">
+
+      <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-brand">
+          <strong>MALAK</strong>
+          <span>Centro de comunicaciones</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Navegación principal">
+
+          <button class="nav-item active" type="button" data-section="resumen">
+            <span class="nav-index">01</span>
+            <span>Resumen</span>
+          </button>
+
+          <button class="nav-item" type="button" data-section="contactos">
+            <span class="nav-index">02</span>
+            <span>Contactos</span>
+          </button>
+
+          <button class="nav-item" type="button" data-section="email">
+            <span class="nav-index">03</span>
+            <span>Email</span>
+          </button>
+
+          <button class="nav-item" type="button" data-section="historial">
+            <span class="nav-index">04</span>
+            <span>Historial</span>
+          </button>
+
+          <button class="nav-item" type="button" data-section="whatsapp">
+            <span class="nav-index">05</span>
+            <span>WhatsApp</span>
+          </button>
+
+        </nav>
+
+        <div class="sidebar-user">
+          <span>Sesión iniciada</span>
+          <strong id="session-email">—</strong>
+          <button type="button" id="logout-button">Cerrar sesión</button>
+        </div>
+
+      </aside>
+
+
+      <div class="main-area">
+
+        <header class="topbar">
+
+          <div>
+            <button type="button" class="mobile-menu-button" id="mobile-menu-button" aria-label="Abrir menú">
+              ☰
+            </button>
+
+            <div class="topbar-copy">
+              <span class="eyebrow">Panel privado</span>
+              <strong id="topbar-title">Resumen</strong>
+            </div>
+          </div>
+
+          <div class="topbar-status">
+            <span class="status-dot"></span>
+            <span>Sistema conectado</span>
+          </div>
+
+        </header>
+
+
+        <div class="content-shell">
+
+
+          <!-- RESUMEN -->
+          <section class="app-section active" id="section-resumen">
+
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">Vista general</span>
+                <h1>Centro de comunicaciones</h1>
+                <p>
+                  Una vista rápida de tus contactos y canales de comunicación.
+                </p>
+              </div>
+
+              <div class="date-chip" id="current-date">—</div>
+            </div>
+
+
+            <div class="metric-grid">
+
+              <article class="metric-card">
+                <span class="metric-label">Contactos</span>
+                <strong id="metric-total">—</strong>
+                <small>Registros activos</small>
+              </article>
+
+              <article class="metric-card">
+                <span class="metric-label">Email</span>
+                <strong id="metric-email">—</strong>
+                <small>Aceptaron promociones</small>
+              </article>
+
+              <article class="metric-card">
+                <span class="metric-label">WhatsApp</span>
+                <strong id="metric-whatsapp">—</strong>
+                <small>Aceptaron promociones</small>
+              </article>
+
+              <article class="metric-card metric-card-accent">
+                <span class="metric-label">Campaña actual</span>
+                <strong class="metric-campaign" id="metric-campaign-name">Renovación de blancos</strong>
+                <small>Email · Lista para prueba</small>
+              </article>
+
+            </div>
+
+
+            <div class="overview-grid">
+
+              <article class="surface-card">
+                <div class="card-heading-row">
+                  <div>
+                    <span class="eyebrow">Actividad</span>
+                    <h2>Últimos contactos</h2>
+                  </div>
+
+                  <button type="button" class="text-button" data-go-section="contactos">
+                    Ver todos
+                  </button>
+                </div>
+
+                <div class="recent-list" id="recent-contacts">
+                  <div class="empty-state compact">Cargando contactos…</div>
+                </div>
+              </article>
+
+
+              <article class="surface-card quick-card">
+                <span class="eyebrow">Acceso rápido</span>
+                <h2>Campaña de email</h2>
+                <p>
+                  Revisa la campaña actual, envíate una prueba y confirma el envío cuando esté lista.
+                </p>
+
+                <button type="button" class="btn btn-primary" data-go-section="email">
+                  Ir a Email
+                </button>
+              </article>
+
+            </div>
+
+          </section>
+
+
+          <!-- CONTACTOS -->
+          <section class="app-section" id="section-contactos">
+
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">Base de contactos</span>
+                <h1>Contactos</h1>
+                <p>
+                  Consulta quién aceptó recibir información por email o WhatsApp.
+                </p>
+              </div>
+
+              <div class="section-count">
+                <strong id="contacts-result-count">0</strong>
+                <span>resultados</span>
+              </div>
+            </div>
+
+
+            <div class="filters-card">
+
+              <div class="search-wrap">
+                <label for="contacts-search">Buscar</label>
+                <input
+                  type="search"
+                  id="contacts-search"
+                  placeholder="Nombre, hotel, correo, teléfono..."
+                  autocomplete="off"
+                >
+              </div>
+
+              <div class="filter-pills" aria-label="Filtros de contactos">
+                <button type="button" class="filter-pill active" data-contact-filter="todos">
+                  Todos
+                </button>
+
+                <button type="button" class="filter-pill" data-contact-filter="email">
+                  Email
+                </button>
+
+                <button type="button" class="filter-pill" data-contact-filter="whatsapp">
+                  WhatsApp
+                </button>
+
+                <button type="button" class="filter-pill" data-contact-filter="inactivos">
+                  Inactivos
+                </button>
+              </div>
+
+            </div>
+
+
+            <div class="contacts-card">
+
+              <div class="contacts-table-head">
+                <span>Contacto</span>
+                <span>Canales</span>
+                <span>Registro</span>
+                <span>Estado</span>
+                <span></span>
+              </div>
+
+              <div id="contacts-list">
+                <div class="empty-state">Cargando contactos…</div>
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <!-- EMAIL -->
+          <section class="app-section" id="section-email">
+
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">Canal activo</span>
+                <h1>Email</h1>
+                <p>
+                  Prueba y envía la campaña actual únicamente a suscriptores autorizados.
+                </p>
+              </div>
+
+              <div class="channel-badge">
+                <span class="status-dot"></span>
+                Email conectado
+              </div>
+            </div>
+
+
+            <article class="campaign-hero">
+
+              <div class="campaign-hero-copy">
+                <span class="eyebrow light">Campaña actual</span>
+                <h2 id="campaign-title-name">Renovación de blancos</h2>
+                <p id="campaign-subject">
+                    “Eleva la experiencia de tus huéspedes: Renueva los blancos de tu hotel con MALAK”
+                  </p>
+              </div>
+
+              <div class="campaign-hero-number">
+                <span>Suscriptores</span>
+                <strong id="subscriber-count">—</strong>
+              </div>
+
+            </article>
+
+            <!-- ADMINISTRAR CAMPAÑA -->
+
+            <div class="campaign-toolbar">
+            
+              <div class="campaign-toolbar-copy">
+                <span class="eyebrow">Administrar campaña</span>
+            
+                <h3>
+                  Prepara tu próxima comunicación
+                </h3>
+            
+                <p>
+                  Crea una nueva campaña o modifica la campaña actual.
+                </p>
+              </div>
+            
+            
+              <div class="campaign-toolbar-actions">
+            
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  id="new-campaign-button"
+                >
+                  + Nueva campaña
+                </button>
+            
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  id="edit-campaign-button"
+                >
+                  Editar campaña
+                </button>
+            
+              </div>
+            
+            </div>
+
+
+            <div class="email-actions-grid">
+
+              <article class="surface-card">
+
+                <div class="step-heading">
+                  <span>01</span>
+                  <div>
+                    <small>Antes de enviar</small>
+                    <h2>Correo de prueba</h2>
+                  </div>
+                </div>
+
+                <p class="card-description">
+                  Envíate la campaña para revisar el diseño y el contenido antes del envío general.
+                </p>
+
+                <div class="field">
+                  <label for="test-email">Correo de prueba</label>
+                  <input
+                    id="test-email"
+                    type="email"
+                    placeholder="correo@ejemplo.com"
+                  >
+                </div>
+
+                <button type="button" class="btn btn-secondary" id="test-button">
+                  Enviar correo de prueba
+                </button>
+
+                <p class="status-message" id="test-status" aria-live="polite"></p>
+
+              </article>
+
+
+              <article class="surface-card">
+
+                <div class="step-heading">
+                  <span>02</span>
+                  <div>
+                    <small>Envío general</small>
+                    <h2>Enviar campaña</h2>
+                  </div>
+                </div>
+
+                <p class="card-description">
+                  Se enviará individualmente a los contactos activos que aceptaron promociones por email.
+                </p>
+
+                <div class="warning-box">
+                  <strong>Confirmación requerida</strong>
+                  <span>
+                    Escribe <b>ENVIAR</b> para habilitar el envío.
+                  </span>
+                </div>
+
+                <div class="field">
+                  <label for="send-confirmation">Confirmación</label>
+                  <input
+                    id="send-confirmation"
+                    type="text"
+                    autocomplete="off"
+                    placeholder="Escribe ENVIAR"
+                  >
+                </div>
+
+                <button type="button" class="btn btn-dark" id="send-button" disabled>
+                  Enviar a todos los suscriptores
+                </button>
+
+                <p class="status-message" id="send-status" aria-live="polite"></p>
+
+              </article>
+
+            </div>
+
+          </section>
+
+
+
+
+          <!-- WHATSAPP -->
+          <section class="app-section" id="section-whatsapp">
+
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">Canal WhatsApp</span>
+                <h1>WhatsApp</h1>
+                <p>
+                  Prepara campañas para los contactos activos que autorizaron
+                  recibir promociones por WhatsApp.
+                </p>
+              </div>
+
+              <div class="channel-badge" id="whatsapp-channel-badge">
+                <span class="status-dot"></span>
+                API conectada
+              </div>
+            </div>
+
+
+            <article class="campaign-hero">
+
+              <div class="campaign-hero-copy">
+                <span class="eyebrow light">Plantilla en revisión</span>
+
+                <h2>
+                  Temporada alta MALAK
+                </h2>
+
+                <p>
+                  La plantilla <strong>temporada_alta_malak</strong> ya fue enviada
+                  a revisión en Meta. El envío general se habilitará cuando quede aprobada.
+                </p>
+              </div>
+
+              <div class="campaign-hero-number">
+                <span>Autorizados</span>
+                <strong id="whatsapp-subscriber-count">—</strong>
+              </div>
+
+            </article>
+
+
+            <div class="campaign-toolbar">
+
+              <div class="campaign-toolbar-copy">
+                <span class="eyebrow">Plantilla preparada</span>
+
+                <h3>
+                  temporada_alta_malak
+                </h3>
+
+                <p>
+                  Marketing · Español (México) · Botón “Ver catálogo”.
+                  Mientras Meta la revisa, puedes seguir usando el mensaje de prueba.
+                </p>
+              </div>
+
+              <div class="campaign-toolbar-actions">
+
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  id="whatsapp-template-status"
+                  disabled
+                >
+                  En revisión
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <div class="email-actions-grid">
+
+              <article class="surface-card">
+
+                <div class="step-heading">
+                  <span>01</span>
+
+                  <div>
+                    <small>Conexión validada</small>
+                    <h2>Mensaje de prueba</h2>
+                  </div>
+                </div>
+
+                <p class="card-description">
+                  Usa el número que autorizaste en Meta para comprobar que
+                  MALAK, Supabase y WhatsApp siguen comunicándose correctamente.
+                </p>
+
+                <div class="field">
+                  <label for="whatsapp-test-phone">
+                    Número de prueba
+                  </label>
+
+                  <input
+                    id="whatsapp-test-phone"
+                    type="tel"
+                    inputmode="tel"
+                    autocomplete="tel"
+                    placeholder="9510000000"
+                  >
+                </div>
+
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  id="whatsapp-test-button"
+                >
+                  Enviar WhatsApp de prueba
+                </button>
+
+                <p
+                  class="status-message"
+                  id="whatsapp-test-status"
+                  aria-live="polite"
+                ></p>
+
+              </article>
+
+
+              <article class="surface-card">
+
+                <div class="step-heading">
+                  <span>02</span>
+
+                  <div>
+                    <small>Preparado para activar</small>
+                    <h2>Enviar campaña</h2>
+                  </div>
+                </div>
+
+                <p class="card-description">
+                  Cuando Meta apruebe la plantilla, este envío utilizará únicamente
+                  contactos activos con consentimiento de WhatsApp y teléfono registrado.
+                </p>
+
+                <div class="warning-box">
+                  <strong>Esperando aprobación de Meta</strong>
+
+                  <span>
+                    El envío general permanece bloqueado para evitar utilizar
+                    una plantilla que todavía no está aprobada.
+                  </span>
+                </div>
+
+                <div class="field">
+                  <label for="whatsapp-send-confirmation">
+                    Confirmación
+                  </label>
+
+                  <input
+                    id="whatsapp-send-confirmation"
+                    type="text"
+                    autocomplete="off"
+                    placeholder="Escribe ENVIAR"
+                    disabled
+                  >
+                </div>
+
+                <button
+                  type="button"
+                  class="btn btn-dark"
+                  id="whatsapp-send-button"
+                  disabled
+                >
+                  Enviar a contactos de WhatsApp
+                </button>
+
+                <p
+                  class="status-message"
+                  id="whatsapp-send-status"
+                  aria-live="polite"
+                >
+                  Se habilitará cuando temporada_alta_malak sea aprobada.
+                </p>
+
+              </article>
+
+            </div>
+
+          </section>
+
+
+          <!-- HISTORIAL -->
+          <section class="app-section" id="section-historial">
+
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">Seguimiento</span>
+                <h1>Historial</h1>
+                <p>
+                  Aquí quedarán registrados los envíos de campañas de MALAK.
+                </p>
+              </div>
+            </div>
+
+            <div class="history-card">
+              <div class="history-head">
+                <span>Campaña</span>
+                <span>Canal</span>
+                <span>Destinatario</span>
+                <span>Estado</span>
+                <span>Fecha</span>
+              </div>
+
+              <div id="history-list">
+                <div class="empty-state">
+                  Aún no hay envíos registrados en el historial.
+                </div>
+              </div>
+            </div>
+
+          </section>
+
+
+        </div>
+
+      </div>
+
+      <!-- MODAL CAMPAÑA -->
+
+      <div
+        class="modal-backdrop hidden"
+        id="campaign-modal"
+      >
+      
+        <div class="campaign-modal-card">
+      
+          <button
+            type="button"
+            class="modal-close"
+            id="campaign-modal-close"
+            aria-label="Cerrar"
+          >
+            ×
+          </button>
+      
+      
+          <span class="eyebrow">
+            Campaña de Email
+          </span>
+      
+      
+          <h2 id="campaign-modal-title">
+            Nueva campaña
+          </h2>
+      
+      
+          <p class="campaign-modal-description">
+            Completa la información de la campaña.
+            Se guardará inicialmente como borrador.
+          </p>
+      
+      
+          <form id="campaign-form">
+      
+      
+            <div class="campaign-form-grid">
+      
+      
+              <div class="field campaign-field-full">
+      
+                <label for="campaign-name">
+                  Nombre interno de la campaña
+                </label>
+      
+                <input
+                  id="campaign-name"
+                  type="text"
+                  placeholder="Ej. Temporada alta"
+                  required
+                >
+      
+              </div>
+      
+      
+              <div class="field campaign-field-full">
+      
+                <label for="campaign-subject-input">
+                  Asunto del correo
+                </label>
+      
+                <input
+                  id="campaign-subject-input"
+                  type="text"
+                  placeholder="Ej. Prepara tu hotel para temporada alta"
+                  required
+                >
+      
+              </div>
+      
+      
+              <div class="field campaign-field-full">
+      
+                <label for="campaign-preheader">
+                  Texto de vista previa
+                </label>
+      
+                <input
+                  id="campaign-preheader"
+                  type="text"
+                  placeholder="Texto corto que aparece junto al asunto"
+                >
+      
+              </div>
+      
+      
+              <div class="field campaign-field-full">
+      
+                <label for="campaign-title-input">
+                  Título principal
+                </label>
+      
+                <input
+                  id="campaign-title-input"
+                  type="text"
+                  placeholder="Ej. Renueva tus blancos para esta temporada"
+                >
+      
+              </div>
+      
+      
+              <div class="field campaign-field-full">
+      
+                <label for="campaign-message-input">
+                  Mensaje principal
+                </label>
+      
+                <textarea
+                  id="campaign-message-input"
+                  rows="6"
+                  placeholder="Escribe aquí el mensaje de la campaña..."
+                ></textarea>
+      
+              </div>
+      
+      
+              <div class="field">
+      
+                <label for="campaign-button-text">
+                  Texto del botón
+                </label>
+      
+                <input
+                  id="campaign-button-text"
+                  type="text"
+                  placeholder="Solicitar cotización"
+                >
+      
+              </div>
+      
+      
+              <div class="field">
+      
+                <label for="campaign-button-url">
+                  Enlace del botón
+                </label>
+      
+                <input
+                  id="campaign-button-url"
+                  type="url"
+                  placeholder="https://..."
+                >
+      
+              </div>
+      
+      
+            </div>
+      
+      
+            <div class="campaign-form-footer">
+      
+              <div class="campaign-draft-note">
+                <span></span>
+      
+                Se guardará como
+                <strong>Borrador</strong>
+              </div>
+      
+      
+              <button
+                type="submit"
+                class="btn btn-primary"
+                id="campaign-save-button"
+              >
+                Guardar campaña
+              </button>
+      
+            </div>
+      
+      
+            <p
+              class="status-message"
+              id="campaign-form-status"
+              aria-live="polite"
+            ></p>
+      
+      
+          </form>
+      
+        </div>
+      
+      </div>
+
+
+      <!-- MODAL CONTACTO -->
+      <div class="modal-backdrop hidden" id="contact-modal">
+
+        <div class="contact-modal-card">
+
+          <button type="button" class="modal-close" id="contact-modal-close" aria-label="Cerrar">
+            ×
+          </button>
+
+          <span class="eyebrow">Detalle del contacto</span>
+          <h2 id="detail-name">—</h2>
+          <p class="detail-business" id="detail-business">—</p>
+
+          <div class="detail-grid">
+
+            <div class="detail-item">
+              <span>Correo</span>
+              <strong id="detail-email">—</strong>
+            </div>
+
+            <div class="detail-item">
+              <span>Teléfono</span>
+              <strong id="detail-phone">—</strong>
+            </div>
+
+            <div class="detail-item">
+              <span>Ubicación</span>
+              <strong id="detail-location">—</strong>
+            </div>
+
+            <div class="detail-item">
+              <span>Habitaciones</span>
+              <strong id="detail-rooms">—</strong>
+            </div>
+
+            <div class="detail-item">
+              <span>Interés</span>
+              <strong id="detail-interest">—</strong>
+            </div>
+
+            <div class="detail-item">
+              <span>Proveedor actual</span>
+              <strong id="detail-provider">—</strong>
+            </div>
+
+          </div>
+
+
+          <div class="detail-consents">
+            <div>
+              <span>Email</span>
+              <strong id="detail-email-consent">—</strong>
+            </div>
+
+            <div>
+              <span>WhatsApp</span>
+              <strong id="detail-whatsapp-consent">—</strong>
+            </div>
+
+            <div>
+              <span>Estado</span>
+              <strong id="detail-status">—</strong>
+            </div>
+          </div>
+
+
+          <div class="detail-message">
+            <span>Mensaje</span>
+            <p id="detail-message">Sin mensaje.</p>
+          </div>
+
+          <div class="detail-foot">
+            <span>Registrado</span>
+            <strong id="detail-created">—</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/admin-promociones.js?v=2"></script>
+
+</body>
+</html>
