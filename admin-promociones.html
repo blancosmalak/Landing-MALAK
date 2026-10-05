@@ -122,6 +122,11 @@
             <span>WhatsApp</span>
           </button>
 
+          <button class="nav-item" type="button" data-section="registrar-cliente">
+            <span class="nav-index">06</span>
+            <span>Registrar clientes</span>
+          </button>
+
         </nav>
 
         <div class="sidebar-user">
@@ -677,6 +682,222 @@
                 </div>
               </div>
             </div>
+
+          </section>
+
+
+          <!-- REGISTRAR CLIENTES -->
+          <section class="app-section" id="section-registrar-cliente">
+
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">Alta manual</span>
+                <h1>Registrar clientes</h1>
+                <p>
+                  Agrega clientes directamente al Centro de comunicaciones de MALAK.
+                </p>
+              </div>
+
+              <div class="channel-badge">
+                <span class="status-dot"></span>
+                Base de datos conectada
+              </div>
+            </div>
+
+
+            <article class="surface-card client-register-card">
+
+              <div class="card-heading-row">
+                <div>
+                  <span class="eyebrow">Nuevo contacto</span>
+                  <h2>Datos del cliente</h2>
+                </div>
+              </div>
+
+
+              <form id="client-register-form" class="client-register-form">
+
+                <div class="client-form-grid">
+
+                  <div class="field client-field-full">
+                    <label for="client-name">Nombre</label>
+                    <input
+                      id="client-name"
+                      name="nombre"
+                      type="text"
+                      autocomplete="name"
+                      placeholder="Nombre completo"
+                      required
+                    >
+                  </div>
+
+
+                  <div class="field">
+                    <label for="client-phone">Teléfono</label>
+                    <input
+                      id="client-phone"
+                      name="telefono"
+                      type="tel"
+                      inputmode="tel"
+                      autocomplete="tel"
+                      placeholder="951 000 0000"
+                      required
+                    >
+                  </div>
+
+
+                  <div class="field">
+                    <label for="client-email">Correo electrónico</label>
+                    <input
+                      id="client-email"
+                      name="correo"
+                      type="email"
+                      autocomplete="email"
+                      placeholder="correo@ejemplo.com"
+                    >
+                  </div>
+
+
+                  <div class="field">
+                    <label for="client-business">Hotel o negocio</label>
+                    <input
+                      id="client-business"
+                      name="negocio"
+                      type="text"
+                      placeholder="Nombre del establecimiento"
+                    >
+                  </div>
+
+
+                  <div class="field">
+                    <label for="client-provider">Proveedor actual</label>
+                    <input
+                      id="client-provider"
+                      name="proveedor"
+                      type="text"
+                      placeholder="Nombre del proveedor actual"
+                    >
+                  </div>
+
+
+                  <div class="field">
+                    <label for="client-rooms">Número de habitaciones</label>
+                    <input
+                      id="client-rooms"
+                      name="habitaciones"
+                      type="number"
+                      min="1"
+                      inputmode="numeric"
+                      placeholder="Ej. 35"
+                    >
+                  </div>
+
+
+                  <div class="field">
+                    <label for="client-location">Ubicación</label>
+                    <input
+                      id="client-location"
+                      name="ubicacion"
+                      type="text"
+                      placeholder="Ciudad o municipio"
+                    >
+                  </div>
+
+
+                  <div class="field client-field-full">
+                    <label for="client-interest">Producto de interés</label>
+                    <select
+                      id="client-interest"
+                      name="interes"
+                      required
+                    >
+                      <option value="" selected disabled>Selecciona una opción</option>
+                      <option value="Sábanas hoteleras">Sábanas hoteleras</option>
+                      <option value="Toallas hoteleras">Toallas hoteleras</option>
+                      <option value="Almohadas">Almohadas</option>
+                      <option value="Blancos para habitación">Blancos para habitación</option>
+                      <option value="Proyecto completo">Proyecto completo</option>
+                      <option value="Otros productos">Otros productos</option>
+                    </select>
+                  </div>
+
+
+                  <div class="field client-field-full">
+                    <label for="client-message">¿Cómo podemos ayudarle?</label>
+                    <textarea
+                      id="client-message"
+                      name="mensaje"
+                      rows="5"
+                      placeholder="Notas, productos solicitados o información adicional."
+                    ></textarea>
+                  </div>
+
+                </div>
+
+
+                <div class="client-consents">
+
+                  <div class="client-consents-copy">
+                    <span class="eyebrow">Promociones y novedades</span>
+                    <strong>Autorizaciones del cliente</strong>
+                    <p>
+                      Marca únicamente los canales que el cliente haya autorizado.
+                    </p>
+                  </div>
+
+
+                  <label class="client-consent-option" for="client-accept-email">
+                    <input
+                      type="checkbox"
+                      id="client-accept-email"
+                      name="acepta_email"
+                    >
+                    <span>
+                      Autoriza recibir promociones y novedades de MALAK por correo electrónico.
+                    </span>
+                  </label>
+
+
+                  <label class="client-consent-option" for="client-accept-whatsapp">
+                    <input
+                      type="checkbox"
+                      id="client-accept-whatsapp"
+                      name="acepta_whatsapp"
+                    >
+                    <span>
+                      Autoriza recibir promociones y novedades de MALAK por WhatsApp.
+                    </span>
+                  </label>
+
+                </div>
+
+
+                <div class="client-register-footer">
+
+                  <p class="client-register-note">
+                    El contacto se guardará como activo y con origen de registro administrativo.
+                  </p>
+
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    id="client-register-button"
+                  >
+                    Registrar cliente
+                  </button>
+
+                </div>
+
+
+                <p
+                  class="status-message"
+                  id="client-register-status"
+                  aria-live="polite"
+                ></p>
+
+              </form>
+
+            </article>
 
           </section>
 
