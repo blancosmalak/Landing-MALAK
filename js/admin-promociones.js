@@ -185,6 +185,48 @@ document.addEventListener("DOMContentLoaded", async () => {
   const whatsappSendStatus =
     document.getElementById("whatsapp-send-status");
 
+  const clientRegisterForm =
+    document.getElementById("client-register-form");
+
+  const clientRegisterButton =
+    document.getElementById("client-register-button");
+
+  const clientRegisterStatus =
+    document.getElementById("client-register-status");
+
+  const clientName =
+    document.getElementById("client-name");
+
+  const clientPhone =
+    document.getElementById("client-phone");
+
+  const clientEmail =
+    document.getElementById("client-email");
+
+  const clientBusiness =
+    document.getElementById("client-business");
+
+  const clientProvider =
+    document.getElementById("client-provider");
+
+  const clientRooms =
+    document.getElementById("client-rooms");
+
+  const clientLocation =
+    document.getElementById("client-location");
+
+  const clientInterest =
+    document.getElementById("client-interest");
+
+  const clientMessage =
+    document.getElementById("client-message");
+
+  const clientAcceptEmail =
+    document.getElementById("client-accept-email");
+
+  const clientAcceptWhatsapp =
+    document.getElementById("client-accept-whatsapp");
+
 
   // =========================
   // UTILIDADES
@@ -498,7 +540,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       contactos: "Contactos",
       email: "Email",
       historial: "Historial",
-      whatsapp: "WhatsApp"
+      whatsapp: "WhatsApp",
+      "registrar-cliente": "Registrar clientes"
     };
 
 
@@ -2269,6 +2312,226 @@ campaignForm.addEventListener(
           whatsappSendStatus,
           "Se habilitará cuando temporada_alta_malak sea aprobada."
         );
+
+      }
+    );
+
+  }
+
+
+  // =========================
+  // REGISTRAR CLIENTES
+  // =========================
+
+  if (
+    clientRegisterForm &&
+    clientRegisterButton &&
+    clientRegisterStatus
+  ) {
+
+    clientRegisterForm.addEventListener(
+      "submit",
+      async (event) => {
+
+        event.preventDefault();
+
+        setStatus(
+          clientRegisterStatus,
+          ""
+        );
+
+
+        const nombre =
+          clientName?.value.trim() || "";
+
+        const telefono =
+          clientPhone?.value.trim() || "";
+
+        const correo =
+          clientEmail?.value.trim() || "";
+
+        const negocio =
+          clientBusiness?.value.trim() || "";
+
+        const proveedor =
+          clientProvider?.value.trim() || "";
+
+        const habitaciones =
+          clientRooms?.value.trim() || "";
+
+        const ubicacion =
+          clientLocation?.value.trim() || "";
+
+        const interes =
+          clientInterest?.value || "";
+
+        const mensaje =
+          clientMessage?.value.trim() || "";
+
+        const aceptaEmail =
+          clientAcceptEmail?.checked || false;
+
+        const aceptaWhatsApp =
+          clientAcceptWhatsapp?.checked || false;
+
+
+        if (
+          !nombre ||
+          !telefono ||
+          !interes
+        ) {
+
+          setStatus(
+            clientRegisterStatus,
+            "Completa nombre, teléfono y producto de interés.",
+            "error"
+          );
+
+          return;
+        }
+
+
+        if (
+          aceptaEmail &&
+          !correo
+        ) {
+
+          setStatus(
+            clientRegisterStatus,
+            "Escribe el correo del cliente para autorizar promociones por email.",
+            "error"
+          );
+
+          clientEmail?.focus();
+
+          return;
+        }
+
+
+        const fechaConsentimiento =
+          (
+            aceptaEmail ||
+            aceptaWhatsApp
+          )
+            ? new Date().toISOString()
+            : null;
+
+
+        const registro = {
+          nombre,
+          telefono,
+          correo:
+            correo || null,
+          negocio:
+            negocio || null,
+          proveedor:
+            proveedor || null,
+          habitaciones:
+            habitaciones
+              ? Number.parseInt(
+                  habitaciones,
+                  10
+                )
+              : null,
+          ubicacion:
+            ubicacion || null,
+          interes,
+          mensaje:
+            mensaje || null,
+          acepta_email:
+            aceptaEmail,
+          acepta_whatsapp:
+            aceptaWhatsApp,
+          fecha_consentimiento:
+            fechaConsentimiento,
+          origen:
+            "registro_administrativo",
+          activo:
+            true
+        };
+
+
+        clientRegisterButton.disabled =
+          true;
+
+        clientRegisterButton.textContent =
+          "Registrando…";
+
+
+        setStatus(
+          clientRegisterStatus,
+          "Guardando cliente…"
+        );
+
+
+        try {
+
+          const {
+            error
+          } =
+            await supabaseClient
+              .from(
+                "contactos_malak"
+              )
+              .insert([
+                registro
+              ]);
+
+
+          if (error) {
+            throw error;
+          }
+
+
+          clientRegisterForm.reset();
+
+
+          setStatus(
+            clientRegisterStatus,
+            "Cliente registrado correctamente.",
+            "success"
+          );
+
+
+          try {
+
+            await loadContacts();
+
+          } catch (refreshError) {
+
+            console.error(
+              "El cliente se guardó, pero no se pudo actualizar la lista:",
+              refreshError
+            );
+
+          }
+
+
+        } catch (error) {
+
+          console.error(
+            "Error registrando cliente:",
+            error
+          );
+
+
+          setStatus(
+            clientRegisterStatus,
+            error?.message ||
+            "No se pudo registrar el cliente.",
+            "error"
+          );
+
+
+        } finally {
+
+          clientRegisterButton.disabled =
+            false;
+
+          clientRegisterButton.textContent =
+            "Registrar cliente";
+
+        }
 
       }
     );
