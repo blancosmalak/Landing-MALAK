@@ -19,7 +19,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     let currentSearch = "";
 
 
-  // =========================
+  
+  const CONTACTS_PER_PAGE = 10;
+  let currentContactsPage = 1;
+// =========================
   // ELEMENTOS
   // =========================
 
@@ -100,6 +103,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const contactsResultCount =
     document.getElementById("contacts-result-count");
+
+  const contactsPagination =
+    document.getElementById("contacts-pagination");
 
   const currentDate =
     document.getElementById("current-date");
@@ -924,6 +930,199 @@ subscriberCount.textContent =
   }
 
 
+  function renderContactsPagination(
+    totalResults,
+    totalPages,
+    startIndex,
+    visibleCount
+  ) {
+
+    if (!contactsPagination) {
+      return;
+    }
+
+
+    if (
+      totalResults === 0 ||
+      totalPages <= 1
+    ) {
+
+      contactsPagination.innerHTML = "";
+      contactsPagination.classList.add(
+        "hidden"
+      );
+
+      return;
+    }
+
+
+    contactsPagination.classList.remove(
+      "hidden"
+    );
+
+
+    const firstVisible =
+      startIndex + 1;
+
+    const lastVisible =
+      startIndex + visibleCount;
+
+
+    const pageCandidates =
+      [
+        1,
+        currentContactsPage - 1,
+        currentContactsPage,
+        currentContactsPage + 1,
+        totalPages
+      ]
+        .filter(
+          (page) =>
+            page >= 1 &&
+            page <= totalPages
+        )
+        .filter(
+          (page, index, array) =>
+            array.indexOf(page) === index
+        )
+        .sort(
+          (a, b) => a - b
+        );
+
+
+    const pageParts = [];
+
+    pageCandidates.forEach(
+      (page, index) => {
+
+        const previousPage =
+          pageCandidates[index - 1];
+
+
+        if (
+          previousPage &&
+          page - previousPage > 1
+        ) {
+
+          pageParts.push(
+            `<span class="pagination-ellipsis" aria-hidden="true">…</span>`
+          );
+
+        }
+
+
+        pageParts.push(
+          `
+            <button
+              type="button"
+              class="pagination-page ${page === currentContactsPage ? "active" : ""}"
+              data-contacts-page="${page}"
+              aria-label="Ir a la página ${page}"
+              ${page === currentContactsPage ? 'aria-current="page"' : ""}
+            >
+              ${page}
+            </button>
+          `
+        );
+
+      }
+    );
+
+
+    contactsPagination.innerHTML =
+      `
+        <div class="pagination-summary">
+          Mostrando
+          <strong>${firstVisible}–${lastVisible}</strong>
+          de
+          <strong>${totalResults}</strong>
+        </div>
+
+        <div class="pagination-controls">
+
+          <button
+            type="button"
+            class="pagination-nav"
+            data-contacts-page="${currentContactsPage - 1}"
+            ${currentContactsPage === 1 ? "disabled" : ""}
+          >
+            Anterior
+          </button>
+
+          <div class="pagination-pages">
+            ${pageParts.join("")}
+          </div>
+
+          <button
+            type="button"
+            class="pagination-nav"
+            data-contacts-page="${currentContactsPage + 1}"
+            ${currentContactsPage === totalPages ? "disabled" : ""}
+          >
+            Siguiente
+          </button>
+
+        </div>
+      `;
+
+
+    contactsPagination
+      .querySelectorAll(
+        "[data-contacts-page]"
+      )
+      .forEach(
+        (button) => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              if (button.disabled) {
+                return;
+              }
+
+
+              const nextPage =
+                Number(
+                  button.dataset.contactsPage
+                );
+
+
+              if (
+                !Number.isInteger(nextPage) ||
+                nextPage < 1 ||
+                nextPage > totalPages ||
+                nextPage === currentContactsPage
+              ) {
+                return;
+              }
+
+
+              currentContactsPage =
+                nextPage;
+
+
+              renderContacts();
+
+
+              document
+                .getElementById(
+                  "section-contactos"
+                )
+                ?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start"
+                });
+
+            }
+          );
+
+        }
+      );
+
+  }
+
+
   function renderContacts() {
 
     const filtered =
@@ -948,6 +1147,8 @@ subscriberCount.textContent =
       filtered.length === 0
     ) {
 
+      currentContactsPage = 1;
+
       contactsList.innerHTML =
         `
           <div class="empty-state">
@@ -955,12 +1156,61 @@ subscriberCount.textContent =
           </div>
         `;
 
+      renderContactsPagination(
+        0,
+        0,
+        0,
+        0
+      );
+
       return;
     }
 
 
+    const totalPages =
+      Math.ceil(
+        filtered.length /
+        CONTACTS_PER_PAGE
+      );
+
+
+    if (
+      currentContactsPage >
+      totalPages
+    ) {
+
+      currentContactsPage =
+        totalPages;
+
+    }
+
+
+    if (
+      currentContactsPage < 1
+    ) {
+
+      currentContactsPage = 1;
+
+    }
+
+
+    const startIndex =
+      (
+        currentContactsPage - 1
+      ) *
+      CONTACTS_PER_PAGE;
+
+
+    const pageContacts =
+      filtered.slice(
+        startIndex,
+        startIndex +
+        CONTACTS_PER_PAGE
+      );
+
+
     contactsList.innerHTML =
-      filtered
+      pageContacts
         .map(
           (contact) => {
 
@@ -1088,8 +1338,15 @@ subscriberCount.textContent =
         }
       );
 
-  }
 
+    renderContactsPagination(
+      filtered.length,
+      totalPages,
+      startIndex,
+      pageContacts.length
+    );
+
+  }
 
   contactsSearch.addEventListener(
     "input",
@@ -1099,6 +1356,8 @@ subscriberCount.textContent =
         normalize(
           contactsSearch.value
         );
+
+      currentContactsPage = 1;
 
       renderContacts();
 
@@ -1137,6 +1396,8 @@ subscriberCount.textContent =
               "active"
             );
 
+
+            currentContactsPage = 1;
 
             renderContacts();
 
