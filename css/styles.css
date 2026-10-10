@@ -2475,3 +2475,348 @@ header.header-scrolled {
         font-size: 66px;
     }
 }
+
+/* ==================================================
+   TEMPORADA · DÍA DE MUERTOS
+   Solo afecta el HERO del index.
+================================================== */
+
+.hero-dia-muertos {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding-top: 92px;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,0.00) 0%,
+            rgba(214,108,28,0.035) 52%,
+            rgba(255,255,255,0.00) 100%
+        ),
+        var(--cream-light);
+    border-top: 1px solid rgba(201, 107, 29, 0.10);
+    border-bottom: 1px solid rgba(201, 107, 29, 0.14);
+}
+
+.hero-dia-muertos .hero-inner {
+    position: relative;
+    z-index: 3;
+}
+
+/* -------------------------
+   PAPEL PICADO
+------------------------- */
+
+.muertos-papel {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 50%;
+    width: min(760px, 76vw);
+    height: 54px;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.muertos-papel::before {
+    content: "";
+    position: absolute;
+    top: 7px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(30, 74, 59, 0.28);
+}
+
+.muertos-papel span {
+    position: relative;
+    width: 52px;
+    height: 36px;
+    margin-top: 7px;
+    background: var(--green);
+    opacity: 0.92;
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        100% 78%,
+        84% 66%,
+        68% 82%,
+        50% 65%,
+        32% 82%,
+        16% 66%,
+        0 78%
+    );
+    box-shadow: 0 8px 20px rgba(18, 40, 31, 0.08);
+}
+
+.muertos-papel span:nth-child(even) {
+    background: #c96b1d;
+}
+
+.muertos-papel span:nth-child(3n) {
+    background: var(--gold);
+}
+
+.muertos-papel span::before,
+.muertos-papel span::after {
+    content: "";
+    position: absolute;
+    top: 11px;
+    width: 8px;
+    height: 8px;
+    border: 2px solid rgba(251, 249, 244, 0.92);
+    border-radius: 50%;
+}
+
+.muertos-papel span::before {
+    left: 10px;
+}
+
+.muertos-papel span::after {
+    right: 10px;
+}
+
+/* -------------------------
+   CEMPASÚCHIL LATERAL
+------------------------- */
+
+.muertos-floral {
+    position: absolute;
+    z-index: 1;
+    width: 220px;
+    height: 250px;
+    pointer-events: none;
+    opacity: 0.92;
+}
+
+.muertos-floral-left {
+    left: -44px;
+    bottom: -22px;
+    transform: rotate(-10deg);
+}
+
+.muertos-floral-right {
+    right: -44px;
+    top: 72px;
+    transform: scaleX(-1) rotate(-7deg);
+}
+
+.muertos-floral::before,
+.muertos-floral::after {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 180px;
+    background: rgba(30, 74, 59, 0.42);
+    border-radius: 999px;
+    transform-origin: bottom center;
+}
+
+.muertos-floral::before {
+    left: 86px;
+    bottom: 6px;
+    transform: rotate(22deg);
+}
+
+.muertos-floral::after {
+    left: 115px;
+    bottom: -3px;
+    transform: rotate(-18deg);
+}
+
+.muertos-floral i {
+    position: absolute;
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 50% 50%, #9d4a12 0 8%, transparent 9%),
+        repeating-radial-gradient(
+            circle at 50% 50%,
+            #f0a128 0 7px,
+            #db761d 8px 14px,
+            #f3b43f 15px 21px
+        );
+    box-shadow:
+        0 8px 22px rgba(157, 74, 18, 0.16),
+        inset 0 0 0 6px rgba(255,255,255,0.08);
+}
+
+.muertos-floral i:nth-child(1) {
+    left: 18px;
+    top: 76px;
+    transform: scale(0.88);
+}
+
+.muertos-floral i:nth-child(2) {
+    left: 86px;
+    top: 18px;
+    transform: scale(1.02);
+}
+
+.muertos-floral i:nth-child(3) {
+    left: 103px;
+    top: 112px;
+    transform: scale(0.68);
+}
+
+/* Hojas */
+.muertos-floral i::before,
+.muertos-floral i::after {
+    content: "";
+    position: absolute;
+    width: 28px;
+    height: 12px;
+    background: rgba(30, 74, 59, 0.70);
+    border-radius: 100% 0 100% 0;
+}
+
+.muertos-floral i::before {
+    left: -22px;
+    bottom: -17px;
+    transform: rotate(-28deg);
+}
+
+.muertos-floral i::after {
+    right: -18px;
+    bottom: -7px;
+    transform: rotate(34deg) scaleX(-1);
+}
+
+/* -------------------------
+   DETALLES DEL HERO
+------------------------- */
+
+.hero-dia-muertos .hero-label {
+    color: #c96b1d;
+}
+
+.hero-dia-muertos .hero-label::before,
+.hero-dia-muertos .hero-label::after {
+    content: "✦";
+    margin: 0 10px;
+    color: var(--gold);
+    font-size: 9px;
+    vertical-align: 1px;
+}
+
+.hero-dia-muertos h1 {
+    text-shadow: 0 8px 34px rgba(18, 40, 31, 0.04);
+}
+
+.hero-dia-muertos .btn-secondary {
+    border-color: #c96b1d;
+}
+
+.hero-dia-muertos .btn-secondary:hover {
+    border-color: var(--green);
+}
+
+.hero-dia-muertos .hero-origin {
+    position: relative;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px 18px;
+    border-top: 1px solid rgba(201, 107, 29, 0.32);
+    border-bottom: 1px solid rgba(201, 107, 29, 0.32);
+}
+
+/* -------------------------
+   RESPONSIVE
+------------------------- */
+
+@media (max-width: 900px) {
+    .hero-dia-muertos {
+        padding-top: 86px;
+    }
+
+    .muertos-papel {
+        width: 88vw;
+        gap: 7px;
+    }
+
+    .muertos-papel span {
+        width: 44px;
+        height: 32px;
+    }
+
+    .muertos-floral {
+        width: 180px;
+        height: 210px;
+        opacity: 0.74;
+    }
+
+    .muertos-floral-left {
+        left: -76px;
+        bottom: -30px;
+    }
+
+    .muertos-floral-right {
+        right: -78px;
+        top: 88px;
+    }
+}
+
+@media (max-width: 700px) {
+    .hero-dia-muertos {
+        padding-top: 78px;
+    }
+
+    .muertos-papel {
+        width: 94vw;
+        height: 44px;
+        gap: 5px;
+    }
+
+    .muertos-papel span {
+        width: 34px;
+        height: 26px;
+    }
+
+    .muertos-papel span::before,
+    .muertos-papel span::after {
+        width: 5px;
+        height: 5px;
+        top: 8px;
+        border-width: 1px;
+    }
+
+    .muertos-papel span::before {
+        left: 7px;
+    }
+
+    .muertos-papel span::after {
+        right: 7px;
+    }
+
+    .muertos-floral {
+        width: 145px;
+        height: 180px;
+        opacity: 0.48;
+    }
+
+    .muertos-floral-left {
+        left: -94px;
+        bottom: -42px;
+    }
+
+    .muertos-floral-right {
+        right: -96px;
+        top: 110px;
+    }
+
+    .muertos-floral i {
+        width: 66px;
+        height: 66px;
+    }
+
+    .hero-dia-muertos .hero-label::before,
+    .hero-dia-muertos .hero-label::after {
+        margin: 0 6px;
+    }
+}
+
